@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AURA — AI 비전 기반 지능형 재고 자율 운영 시스템</title>
+  <meta name="description" content="AI 비전으로 선반을 실시간 감지하고, 유통기한(FEFO)까지 자동 관리하는 재고 자율 운영 시스템. 병원·물류창고용." />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="AURA — 사람이 꺼내가도 재고가 자동으로 맞춰지는 시스템" />
+  <meta property="og:description" content="AI 비전 기반 지능형 재고 자율 운영. 병원·물류창고 도입 문의." />
+  <meta property="og:image" content="/aura-logo.png" />
+
+  <link rel="icon" type="image/png" href="/aura-logo.png" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <script type="module" src="./landing/landing.js"></script>
+</head>
+<body class="lang-ko">
+
+  <!-- ============================== Header / Nav ============================== -->
+  <header class="landing-nav" id="nav">
+    <div class="container">
+      <a class="brand" href="#hero">
+        <img src="/aura-logo.png" alt="AURA" />
+        <span>AURA</span>
+      </a>
+      <nav class="anchor-nav" aria-label="섹션 내비">
+        <a href="#problem"><span data-lang="ko">문제</span><span data-lang="en">Problem</span></a>
+        <a href="#how"><span data-lang="ko">작동 원리</span><span data-lang="en">How</span></a>
+        <a href="#features"><span data-lang="ko">기능</span><span data-lang="en">Features</span></a>
+        <a href="#use-cases"><span data-lang="ko">적용 사례</span><span data-lang="en">Use Cases</span></a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn-cta btn-cta-nav" href="mailto:ongjong521@gmail.com">
+          <span data-lang="ko">도입 문의</span><span data-lang="en">Contact</span>
+        </a>
+        <button class="lang-toggle" type="button" aria-label="언어 전환">
+          <span data-lang="ko">ko</span>
+          <span data-lang="en">en</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================== Hero ============================== -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <p class="hero-eyebrow">
+          <span data-lang="ko">AI 비전 기반 지능형 재고 자율 운영 시스템</span>
+          <span data-lang="en">AI vision-based autonomous inventory system</span>
+        </p>
+        <h1>
+          <span data-lang="ko">사람이 꺼내가도<br />재고가 자동으로 맞춰집니다.</span>
+          <span data-lang="en">Inventory that updates itself,<br />even when people pick by hand.</span>
+        </h1>
+        <p class="hero-sub">
+          <span data-lang="ko">현장 카메라가 선반 접근을 감지하고, AI가 재고 변화를<br />실시간으로 추적하며, 유통기한(FEFO)까지 자동으로 관리합니다.</span>
+          <span data-lang="en">On-site cameras detect shelf activity, AI tracks inventory changes in real time, and FEFO expiration is enforced automatically.</span>
+        </p>
+        <div class="hero-ctas">
+          <a class="btn-cta btn-cta-primary" href="mailto:ongjong521@gmail.com">
+            <span data-lang="ko">도입 문의</span><span data-lang="en">Contact us</span>
+          </a>
+          <a class="btn-cta btn-cta-ghost" href="#how">
+            <span data-lang="ko">작동 원리 보기 ↓</span><span data-lang="en">See how it works ↓</span>
+          </a>
+        </div>
+      </div>
+      <div class="hero-slideshow reveal" aria-label="AURA 플로터 — 다각도">
+        <img class="hero-slide is-active" src="/landing/plotter-isometric.png" alt="AURA 플로터 아이소메트릭" />
+        <img class="hero-slide" src="/landing/plotter-front.png" alt="AURA 플로터 정면" />
+        <img class="hero-slide" src="/landing/plotter-side.png" alt="AURA 플로터 좌측" />
+        <img class="hero-slide" src="/landing/plotter-back.png" alt="AURA 플로터 뒷면" />
+        <img class="hero-slide" src="/landing/plotter-axis-mechanism.png" alt="AURA 플로터 가동부" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== Problem ============================== -->
+  <section class="section section-problem" id="problem">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="section-eyebrow">
+          <span data-lang="ko">Problem</span>
+          <span data-lang="en">Problem</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang="ko">이런 문제, 익숙하시죠?</span>
+          <span data-lang="en">Sound familiar?</span>
+        </h2>
+        <p class="section-lead">
+          <span data-lang="ko">현장에서 매일 마주치는 세 가지 비용.</span>
+          <span data-lang="en">Three costs you face every day.</span>
+        </p>
+      </div>
+
+      <div class="problem-grid">
+        <article class="card reveal">
+          <div class="card-icon" aria-hidden="true">📋</div>
+          <h3>
+            <span data-lang="ko">수기 재고 오차</span>
+            <span data-lang="en">Manual stocktake errors</span>
+          </h3>
+          <p>
+            <span data-lang="ko">사람이 직접 세고 적는 한, 누락·중복·오타는 사라지지 않습니다. 실사 결과가 시스템과 다르면 신뢰가 무너집니다.</span>
+            <span data-lang="en">As long as humans count by hand, omissions and duplicates persist. When physical and system inventory diverge, trust collapses.</span>
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon" aria-hidden="true">⏳</div>
+          <h3>
+            <span data-lang="ko">유통기한 놓침</span>
+            <span data-lang="en">Missed expirations</span>
+          </h3>
+          <p>
+            <span data-lang="ko">FEFO 원칙을 알아도, 매일 모든 lot의 유통기한을 사람이 확인하기는 어렵습니다. 한 번의 누락이 폐기·사고로 이어집니다.</span>
+            <span data-lang="en">FEFO is a known principle, but tracking every lot's expiration daily is impractical. One miss leads to waste — or worse.</span>
+          </p>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-icon" aria-hidden="true">💸</div>
+          <h3>
+            <span data-lang="ko">실사·점검 인건비</span>
+            <span data-lang="en">High audit labor cost</span>
+          </h3>
+          <p>
+            <span data-lang="ko">월·분기 단위 전수 실사에 들어가는 시간이 곧 비용입니다. 그 시간에 본업을 못 합니다.</span>
+            <span data-lang="en">Periodic full audits cost real hours — hours that should go to core work.</span>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== How it works ============================== -->
+  <section class="section section-how" id="how">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="section-eyebrow">
+          <span data-lang="ko">How it works</span>
+          <span data-lang="en">How it works</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang="ko">사람이 손대지 않아도 알아서 돌아갑니다.</span>
+          <span data-lang="en">It runs itself, hands-off.</span>
+        </h2>
+        <p class="section-lead">
+          <span data-lang="ko">고정 카메라 → 플로터 정밀 스캔 → AI 재고 산출, 3단계로 끝.</span>
+          <span data-lang="en">Three steps: fixed camera → plotter precision scan → AI inventory update.</span>
+        </p>
+      </div>
+
+      <ol class="how-steps">
+        <li class="how-step reveal">
+          <div class="how-step-num">1</div>
+          <div class="how-step-visual">
+            <img src="/landing/ai-shelf-grab-detection.png" alt="AI가 선반 접근을 감지하는 모습" />
+          </div>
+          <div class="how-step-body">
+            <h3>
+              <span data-lang="ko">사람의 선반 접근 감지</span>
+              <span data-lang="en">Detect shelf approach</span>
+            </h3>
+            <p>
+              <span data-lang="ko">고정 카메라와 YOLO·MediaPipe Pose가 사람의 위치·동작을 실시간 추적해 "선반 접근"을 확정합니다.</span>
+              <span data-lang="en">Fixed cameras with YOLO and MediaPipe Pose track human position and motion to confirm shelf approach in real time.</span>
+            </p>
+          </div>
+        </li>
+
+        <li class="how-step reveal">
+          <div class="how-step-num">2</div>
+          <div class="how-step-visual">
+            <img src="/landing/plotter-real-mount.png" alt="플로터 카메라의 정밀 스캔" />
+          </div>
+          <div class="how-step-body">
+            <h3>
+              <span data-lang="ko">플로터 정밀 스캔</span>
+              <span data-lang="en">Plotter precision scan</span>
+            </h3>
+            <p>
+              <span data-lang="ko">선반 위 가로 레일을 따라 움직이는 플로터 카메라가 Depth와 OCR로 박스 단위 변화를 정밀하게 읽어냅니다.</span>
+              <span data-lang="en">A plotter camera rides a horizontal rail across the shelf, reading box-level changes with depth and OCR.</span>
+            </p>
+          </div>
+        </li>
+
+        <li class="how-step reveal">
+          <div class="how-step-num">3</div>
+          <div class="how-step-visual">
+            <img src="/landing/wireframe-dashboard.png" alt="대시보드에 자동 반영된 재고 현황" />
+          </div>
+          <div class="how-step-body">
+            <h3>
+              <span data-lang="ko">재고 자동 산출 → 대시보드 반영</span>
+              <span data-lang="en">Auto-compute and surface</span>
+            </h3>
+            <p>
+              <span data-lang="ko">변화량을 SKU·Lot 단위로 산출하고, FEFO·재고 부족·이상 접근까지 대시보드와 알림으로 즉시 노출합니다.</span>
+              <span data-lang="en">Changes are computed per SKU and lot, with FEFO, low-stock, and abnormal-access events surfaced on the dashboard instantly.</span>
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================== Features ============================== -->
+  <section class="section section-features" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="section-eyebrow">
+          <span data-lang="ko">Features</span>
+          <span data-lang="en">Features</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang="ko">현장에 필요한 것만, 빠짐없이.</span>
+          <span data-lang="en">Everything the floor needs — and nothing else.</span>
+        </h2>
+      </div>
+
+      <div class="features-grid">
+        <article class="feature-card reveal">
+          <div class="feature-visual">
+            <img src="/landing/ai-shelf-grab-detection.png" alt="실시간 선반 감지" />
+          </div>
+          <h3>
+            <span data-lang="ko">실시간 선반 감지</span>
+            <span data-lang="en">Real-time shelf detection</span>
+          </h3>
+          <p>
+            <span data-lang="ko">사람이 어디서 무엇을 가져가는지 YOLO·MediaPipe Pose가 실시간으로 잡아냅니다.</span>
+            <span data-lang="en">YOLO and MediaPipe Pose capture what's taken and from where, in real time.</span>
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-visual">
+            <img src="/landing/ai-abnormal-access-detection.png" alt="이상 접근 감지" />
+          </div>
+          <h3>
+            <span data-lang="ko">이상 접근 감지</span>
+            <span data-lang="en">Abnormal access detection</span>
+          </h3>
+          <p>
+            <span data-lang="ko">허가되지 않은 시간·구역의 접근, 비정상적 체류를 자동으로 분류해 알립니다.</span>
+            <span data-lang="en">Unauthorized hours, restricted zones, and abnormal dwell times are automatically flagged.</span>
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-visual">
+            <img src="/landing/wireframe-fefo.png" alt="FEFO 유통기한 관리" />
+          </div>
+          <h3>
+            <span data-lang="ko">FEFO 유통기한 관리</span>
+            <span data-lang="en">FEFO expiration tracking</span>
+          </h3>
+          <p>
+            <span data-lang="ko">SKU·Lot 단위로 유통기한을 추적하고, 임박·위반 항목을 우선순위 알림으로 띄웁니다.</span>
+            <span data-lang="en">Expirations are tracked at SKU and lot level, with prioritized alerts for upcoming and violated dates.</span>
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-visual">
+            <img src="/landing/wireframe-dashboard.png" alt="권한별 대시보드" />
+          </div>
+          <h3>
+            <span data-lang="ko">권한별 대시보드</span>
+            <span data-lang="en">Role-based dashboard</span>
+          </h3>
+          <p>
+            <span data-lang="ko">현장 관리자·운영 관리자·시스템 모니터링 담당자가 각자의 관점으로 같은 데이터를 봅니다.</span>
+            <span data-lang="en">Floor managers, operators, and system monitors each see the same data through their own lens.</span>
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-visual">
+            <img src="/landing/dashboard-zone-overview.png" alt="공간 추적" />
+          </div>
+          <h3>
+            <span data-lang="ko">공간 단위 추적</span>
+            <span data-lang="en">Spatial tracking</span>
+          </h3>
+          <p>
+            <span data-lang="ko">고객사 → 지점 → 창고 → Zone → Section 5단계로 모든 재고의 정확한 위치를 추적합니다.</span>
+            <span data-lang="en">Five-level spatial hierarchy — from organization down to section — tracks exact inventory location.</span>
+          </p>
+        </article>
+
+        <article class="feature-card reveal">
+          <div class="feature-visual">
+            <img src="/landing/dashboard-operational-stats.png" alt="운영 인사이트" />
+          </div>
+          <h3>
+            <span data-lang="ko">운영 인사이트 리포트</span>
+            <span data-lang="en">Operational insights</span>
+          </h3>
+          <p>
+            <span data-lang="ko">소비 패턴, FEFO 준수율, Zone 활동 추이를 자동 집계해 PDF·CSV로 내보냅니다.</span>
+            <span data-lang="en">Consumption trends, FEFO compliance, and zone activity are auto-aggregated and exportable as PDF and CSV.</span>
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== Use Cases (탭) ============================== -->
+  <section class="section section-use-cases" id="use-cases">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="section-eyebrow">
+          <span data-lang="ko">Use Cases</span>
+          <span data-lang="en">Use Cases</span>
+        </p>
+        <h2 class="section-title">
+          <span data-lang="ko">현장에 맞게, 같은 시스템.</span>
+          <span data-lang="en">One system, shaped to your floor.</span>
+        </h2>
+      </div>
+
+      <div class="use-case-panel reveal">
+        <div class="use-case-grid">
+          <div class="use-case-visual">
+            <img src="/landing/usecase-medical-boxes.jpeg" alt="병원 의료 박스 — Medtronic 라벨" />
+          </div>
+          <div class="use-case-body">
+            <h3>
+              <span data-lang="ko">병원 — 약품·소모품 자동 추적</span>
+              <span data-lang="en">Hospital — drugs &amp; consumables</span>
+            </h3>
+            <p class="use-case-lead">
+              <span data-lang="ko">의료 소모품의 입출고·유통기한·실사 부담을 한 번에 해결합니다. 동일한 구조로 물류창고·연구실 등 다른 환경에도 확장 가능합니다.</span>
+              <span data-lang="en">Solves intake, expiration, and audit overhead for medical consumables in one system — readily extensible to warehouses, labs, and similar environments.</span>
+            </p>
+            <ul class="use-case-list">
+              <li>
+                <span data-lang="ko">의료 박스 라벨(REF · LOT · 유통기한) OCR 자동 판독</span>
+                <span data-lang="en">OCR reads medical box labels — REF, LOT, expiration</span>
+              </li>
+              <li>
+                <span data-lang="ko">FEFO 강제로 폐기·사고 위험 사전 차단</span>
+                <span data-lang="en">FEFO enforcement prevents waste and incidents</span>
+              </li>
+              <li>
+                <span data-lang="ko">SKU·Lot별 입출고를 사람 조작 없이 자동 기록</span>
+                <span data-lang="en">Stock movements logged automatically per SKU and lot</span>
+              </li>
+              <li>
+                <span data-lang="ko">정기 실사 부담 제거 — 신뢰 가능한 실시간 재고</span>
+                <span data-lang="en">No periodic full audits — trustworthy real-time stock</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== CTA ============================== -->
+  <section class="section section-cta" id="contact">
+    <div class="container cta-block reveal">
+      <h2>
+        <span data-lang="ko">현장에 적용할 준비가 되었다면.</span>
+        <span data-lang="en">Ready to deploy on your floor?</span>
+      </h2>
+      <p>
+        <span data-lang="ko">간단한 회신만으로 시작합니다. 도입 가능 여부 검토와 시연 일정을 회신드립니다.</span>
+        <span data-lang="en">A quick email is all it takes — we'll review fit and schedule a demo.</span>
+      </p>
+      <a class="btn-cta btn-cta-primary btn-cta-large" href="mailto:ongjong521@gmail.com">
+        <span data-lang="ko">도입 문의 보내기 →</span>
+        <span data-lang="en">Send a contact email →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================== Team Photos (5장 가로 나열) ============================== -->
+  <section class="team-photos reveal" aria-label="AURA 팀">
+    <div class="team-photos-grid">
+      <div class="team-photo">
+        <img src="/landing/team-group.jpg" alt="AURA 팀 단체" />
+      </div>
+      <div class="team-photo">
+        <img src="/landing/team-fabrication.jpg" alt="AURA 팀 작업장 — 부품 가공" />
+      </div>
+      <div class="team-photo">
+        <img src="/landing/team-outdoor-fabrication.jpg" alt="AURA 팀 야외 작업장" />
+      </div>
+      <div class="team-photo">
+        <img src="/landing/team-equipment-transport.jpg" alt="AURA 팀 장비 운반" />
+      </div>
+      <div class="team-photo">
+        <img src="/landing/plotter-frame-base-cad.png" alt="AURA 플로터 프레임 베이스 CAD" />
+      </div>
+    </div>
+    <div class="team-photos-overlay">
+      <p data-lang="ko">AURA — SSAFY 14기 자율PJT · Team S302</p>
+      <p data-lang="en">AURA — SSAFY 14th Self-directed Project · Team S302</p>
+    </div>
+  </section>
+
+  <!-- ============================== Footer ============================== -->
+  <footer class="landing-footer">
+    <div class="container landing-footer-inner">
+      <div class="landing-footer-brand">
+        <img src="/aura-logo.png" alt="AURA" />
+        <span>AURA</span>
+      </div>
+      <div class="landing-footer-meta">
+        <p data-lang="ko">AI 비전 기반 지능형 재고 자율 운영 시스템</p>
+        <p data-lang="en">AI vision-based autonomous inventory operation system</p>
+        <p><a href="mailto:ongjong521@gmail.com">ongjong521@gmail.com</a></p>
+      </div>
+      <div class="landing-footer-context">
+        <span data-lang="ko">SSAFY 14기 자율PJT · 2026</span>
+        <span data-lang="en">SSAFY 14th Self-directed PJT · 2026</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
