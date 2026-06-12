@@ -4,7 +4,7 @@
  * 두 시연 시나리오 자동 재생 — 호출 순서는 production vision pipeline 과 1:1.
  * v2 freeze 유지, v3 신규 (multi-section TSP 가시화).
  *
- * 공통: DCA POST /event/access (ENTER/EXIT) + /scan-queue 직접 호출 (vision 우회).
+ * 공통: backend POST /api/v1/device/event/access (ENTER/EXIT) + /api/v1/device/scan-queue 직접 호출 (vision 우회).
  *      SSS scan 응답의 ScanItem.expiry_date 가 batches 자동 갱신 — 수동 inbound 불필요.
  *
  * ── v2 시나리오 (단일 section, 박스 행동 중심) ──────────────────────────
@@ -162,9 +162,8 @@ export default function SimPage() {
     scene.setHeadPosition(x, y, z);
   }
 
-  // DCA endpoint — production 의 vision pipeline 이 호출하는 것과 동일.
+  // Device endpoint — backend 통합 후 /api/v1/device/* 하위 (구 DCA 별도 프로세스 폐기).
   // sim 은 vision 대체로 SimPage 가 직접 호출 (person_simulator 우회).
-  const DCA_URL = 'http://localhost:8801';
   const PLOTTER_ID = 'plotter-001';
   const CAMERA_ID = 'camera-001';
 
@@ -172,53 +171,37 @@ export default function SimPage() {
     return new Date().toISOString().replace(/\.\d{3}Z$/, 'Z');
   }
 
-  /** DCA /event/access 직접 호출 — production vision 의 ENTER/EXIT 발사 모사. */
+  /** device /event/access 호출 — production vision 의 ENTER/EXIT 발사 모사. */
   async function triggerAccessEvent({ eventType, count }) {
     try {
-      const r = await fetch(`${DCA_URL}/event/access`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_type:           eventType,
-          camera_id:            CAMERA_ID,
-          plotter_id:           PLOTTER_ID,
-          current_person_count: count,
-          timestamp:            _utcNow(),
-        }),
+      await http.post('/device/event/access', {
+        event_type:           eventType,
+        camera_id:            CAMERA_ID,
+        plotter_id:           PLOTTER_ID,
+        current_person_count: count,
+        timestamp:            _utcNow(),
       });
-      if (r.ok) {
-        appendLog(`✓ DCA /event/access ${eventType} (count=${count})`);
-      } else {
-        appendLog(`⚠️ DCA /event/access ${eventType} 응답 ${r.status}`);
-      }
+      appendLog(`✓ device /event/access ${eventType} (count=${count})`);
     } catch (e) {
-      appendLog(`⚠️ DCA 미실행 (${DCA_URL}) — 시각화만 진행`);
+      appendLog(`⚠️ device /event/access ${eventType} 실패 (${e?.status ?? e?.message ?? '?'}) — 시각화만 진행`);
     }
   }
 
-  /** DCA /scan-queue 직접 호출 — production vision 의 joint compute 결과 발사 모사.
+  /** device /scan-queue 호출 — production vision 의 joint compute 결과 발사 모사.
    *
-   * sectionIds: number | number[] — 단일 또는 multi-section. multi 일 때 DCA TSP planner 활성.
+   * sectionIds: number | number[] — 단일 또는 multi-section. multi 일 때 device TSP planner 활성.
    */
   async function triggerScanQueue(sectionIds) {
     const arr = Array.isArray(sectionIds) ? sectionIds : [sectionIds];
     try {
-      const r = await fetch(`${DCA_URL}/scan-queue`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          sections:       arr,
-          plotter_id:     PLOTTER_ID,
-          trigger_source: 'access',
-        }),
+      await http.post('/device/scan-queue', {
+        sections:       arr,
+        plotter_id:     PLOTTER_ID,
+        trigger_source: 'access',
       });
-      if (r.ok) {
-        appendLog(`✓ DCA /scan-queue sections=[${arr.join(',')}]`);
-      } else {
-        appendLog(`⚠️ DCA /scan-queue 응답 ${r.status}`);
-      }
+      appendLog(`✓ device /scan-queue sections=[${arr.join(',')}]`);
     } catch (e) {
-      appendLog(`⚠️ DCA 미실행 (${DCA_URL}) — 시각화만 진행`);
+      appendLog(`⚠️ device /scan-queue 실패 (${e?.status ?? e?.message ?? '?'}) — 시각화만 진행`);
     }
   }
 
@@ -286,7 +269,7 @@ export default function SimPage() {
 
       // ─── [4/7] 사람 이탈 (EXIT access) + 자동 plotter scan ─────────
       // production: vision EXIT 발사 → compute lag → vision joint detection 이
-      // scan-queue 발사 → DCA → SSS → BE reconcile.
+      // scan-queue 발사 → device handler → SSS → BE reconcile.
       appendLog('[4/7] 사람 이탈 (PLOTTER_EXIT) → compute lag → scan-queue');
       setStatus('🚶 사람 이탈 → 📷 plotter scan');
       const exit1 = scene.animatePersonTo(-1.1, 0.45, 1800);
@@ -298,7 +281,7 @@ export default function SimPage() {
       // compute lag (vision joint detection) + ADR-014 delay 모사
       appendLog('  ADR-014: section ROI 사람==0 후 N초 대기 (compute lag)');
       await yield_(1500);
-      // vision 의 scan-queue 발사 — DCA → plotter scan → SSS mock=3 → reconcile 6→3
+      // vision 의 scan-queue 발사 — device handler → plotter scan → SSS mock=3 → reconcile 6→3
       triggerScanQueue(SEC_1);
       // plotter scan visual
       const head1 = scene.animateHeadTo(sec1.x_mm, sec1.y_mm, 0, 1800);
@@ -413,7 +396,7 @@ export default function SimPage() {
    *    - Mongo batches (s-1 6/6, s-2 5/6) UPSERT
    *    - Mongo pending alerts close (해당 SKU 만)
    *    - Redis dedup 키 삭제 (해당 SKU 만)
-   *    - DCA mock cycle reset (HTTP)
+   *    - SSS mock cycle reset (in-process)
    *
    *  화면 리셋: 박스 6개(0..5) 상태 'normal' 명시 초기화. visibility 는 setSectionQty 토글.
    *  이전 실행의 'critical'/'unknown' 잔재 안 비치게 0..5 전체 명시.
@@ -426,11 +409,11 @@ export default function SimPage() {
     if (btn) { btn.disabled = true; btn.textContent = '… 초기화 중'; }
     if (playBtn) playBtn.disabled = true;
 
-    appendLog('— v3 baseline reset 요청 → backend (DB + redis + DCA mock)');
+    appendLog('— v3 baseline reset 요청 → backend (Mongo seed + alerts close + sss-mock reset)');
     try {
       const res = await http.post('/demo/v3-baseline');
       const d = res?.data ?? {};
-      appendLog(`  OK backend reset (alerts_closed=${d.alertsClosed ?? '?'}, redis_keys_deleted=${d.redisKeysDeleted ?? '?'}, dca=${d.dcaMockReset ?? '?'})`);
+      appendLog(`  OK backend reset (alerts_closed=${d.alertsClosed ?? '?'}, alert_state_keys_deleted=${d.alertStateKeysDeleted ?? '?'}, sss_mock=${d.dcaMockReset ?? '?'})`);
     } catch (e) {
       appendLog(`  FAIL backend reset: ${e?.message ?? e} — 화면만 reset`);
     }
@@ -577,7 +560,7 @@ export default function SimPage() {
       await yield_(SLOW(1500));
 
       // ─── [5/10] multi-section scan [1,2] → TSP planner → s-1, s-2 ──
-      appendLog('[5/10] DCA /scan-queue sections=[1,2] → TSP planner 활성 (n=2)');
+      appendLog('[5/10] device /scan-queue sections=[1,2] → TSP planner 활성 (n=2)');
       setStatus('📷 multi-section scan (TSP 정렬)');
       triggerScanQueue([SEC_1, SEC_2]);
 
@@ -660,7 +643,7 @@ export default function SimPage() {
       await yield_(SLOW(1500));
 
       // ─── [9/10] single-section scan [1] → s-1 보충 인식 ────────────
-      appendLog('[9/10] DCA /scan-queue sections=[1] (single — s-1 만 보충 확인)');
+      appendLog('[9/10] device /scan-queue sections=[1] (single — s-1 만 보충 확인)');
       setStatus('📷 s-1 재 scan');
       triggerScanQueue([SEC_1]);
 

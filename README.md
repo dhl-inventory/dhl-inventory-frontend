@@ -1,16 +1,15 @@
-# AURA Inventory — Frontend
+# DHL Inventory — Frontend
 
 병원·물류창고 환경의 AI 비전 기반 지능형 재고 자율 운영 시스템의 웹 대시보드.
 Vanilla JS SPA — 카메라 스캔 결과를 Socket.io 로 실시간 push 받아 SKU 현황·유통기한(FEFO)·운영 통계를 시각화합니다.
 
-루트 프로젝트 개요는 [상위 README](../README.md) 참조.
+백엔드: [`dhl-inventory-server`](https://github.com/dhl-inventory/dhl-inventory-server) (단일 FastAPI + MongoDB Atlas, 디바이스 API 통합)
 
 ---
 
 ## Quick Start
 
 ```bash
-cd frontend
 npm install                  # 의존성 설치 (최초 1회)
 npm run dev                  # 개발 서버 http://localhost:3000
 ```
@@ -36,7 +35,7 @@ mock 모드 기본값 — BE 없이 화면 동작 확인 가능. 실 BE 연동·
 ## 프로젝트 구조
 
 ```text
-frontend/
+dhl-inventory-frontend/
 ├─ src/
 │  ├─ main.js                ← 진입점 (router init)
 │  ├─ index.css              ← 전역 CSS (Bootstrap override + 컴포넌트 CSS)
@@ -108,7 +107,6 @@ VITE_API_BASE_URL=https://<production-api-host>/api/v1
 ## 개발
 
 ```bash
-cd frontend
 npm install
 cp .env.example .env.local   # 필요 시 값 수정
 npm run dev                  # http://localhost:3000 (HMR)
@@ -127,7 +125,6 @@ npm run dev                  # http://localhost:3000 (HMR)
 ### 운영 빌드
 
 ```bash
-cd frontend
 npm ci                       # lockfile 기준 deterministic install
 npm run build                # dist/ 산출
 ```
