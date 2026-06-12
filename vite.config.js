@@ -17,11 +17,27 @@ export default defineConfig({
       '/api/v1': {
         target: BACKEND_URL,
         changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('proxyReq', (_, req) => {
+            console.log(`[proxy →] ${req.method} ${req.url}`);
+          });
+          proxy.on('proxyRes', (proxyRes, req) => {
+            console.log(`[proxy ←] ${proxyRes.statusCode} ${req.method} ${req.url}`);
+          });
+          proxy.on('error', (err, req) => {
+            console.log(`[proxy ✗] ${req.method} ${req.url} — ${err.message}`);
+          });
+        },
       },
       '/socket.io': {
         target: BACKEND_URL,
         changeOrigin: true,
         ws: true,
+        configure: (proxy) => {
+          proxy.on('error', (err, req) => {
+            console.log(`[socket ✗] ${req.url} — ${err.message}`);
+          });
+        },
       },
     },
   },
