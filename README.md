@@ -12,12 +12,16 @@ AI 비전 기반 지능형 재고 운영 시스템의 운영 대시보드 (SPA).
 
 ## Quick Start
 
+`npm` 명령은 전 OS 동일.
+
 ```bash
 npm install
 npm run dev           # http://localhost:3000 (mock 모드 기본값, backend 불필요)
 ```
 
-실 backend 와 연동:
+실 backend 와 연동 — `.env.local` 생성:
+
+**macOS / Linux (bash)**
 
 ```bash
 cat > .env.local <<EOF
@@ -26,6 +30,18 @@ VITE_API_BASE_URL=/api/v1
 EOF
 npm run dev           # Vite proxy 가 /api/v1, /socket.io 를 localhost:8000 으로 forward
 ```
+
+**Windows (PowerShell)**
+
+```powershell
+@'
+VITE_USE_MOCK=false
+VITE_API_BASE_URL=/api/v1
+'@ | Out-File -Encoding utf8 .env.local
+npm run dev
+```
+
+> 또는 `notepad .env.local` 후 직접 입력. 인코딩은 UTF-8 권장.
 
 ---
 
